@@ -1,0 +1,20 @@
+trigger:
+- master
+
+pool:
+  name: azureagent
+
+steps:
+- checkout: self
+
+- task: vercel-deployment-task@1
+  inputs:
+    vercelProjectId: 'team_2mG8kUjvdPRQCoeuH9WqYP6i'
+    vercelOrgId: 'u0lnMi2OYSebT4lZQ1Wj1o8e'
+    vercelToken: $(VERCEL_TOKEN)
+    production: true
+
+- script: |
+    npm install -g vercel
+    vercel deploy --token $VERCEL_TOKEN --prod
+  displayName: 'Deploy to Vercel'
